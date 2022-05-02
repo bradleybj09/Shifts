@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Coding Challenge</string>
+    <string name="bid">Bid On Shift</string>
+    <string name="premium">PREMIUM RATE</string>
+    <string name="fakeBidConfirmation">Let\'s pretend that did something, and the shift is yours! Bye now.</string>
 </resources>

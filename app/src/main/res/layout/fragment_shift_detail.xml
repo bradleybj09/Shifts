@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        <variable
+            name="viewModel"
+            type="com.shiftkey.codingchallenge.viewModel.ShiftDetailViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/externalMargin">
+        
+        <TextView
+            android:id="@+id/facility"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@{viewModel.shift.facilityType.name}"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:text="Skilled Nursing Facility" />
+
+        <ImageView
+            android:id="@+id/timeIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/time"
+            android:src="@drawable/ic_clock_outline" />
+        
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/timeIcon"
+            app:layout_constraintTop_toBottomOf="@id/facility"
+            android:text="@{viewModel.shift.displayShiftTime}"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginStart="@dimen/externalMargin"
+            android:layout_marginTop="@dimen/externalMargin"
+            tools:text="May 1, 6:00pm - 6:00am"/>
+
+        <ImageView
+            android:id="@+id/premiumIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/premium"
+            app:layout_constraintBottom_toBottomOf="@id/premium"
+            visibleOrGone="@{viewModel.shift.premiumRate}"
+            android:src="@drawable/ic_currency_usd" />
+
+        <TextView
+            android:id="@+id/premium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/premiumIcon"
+            app:layout_constraintTop_toBottomOf="@id/time"
+            android:text="@string/premium"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:layout_marginStart="@dimen/externalMargin"
+            android:layout_marginTop="@dimen/externalMargin"
+            visibleOrGone="@{viewModel.shift.premiumRate}" />
+
+        <ImageView
+            android:id="@+id/specialtyIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/specialty"
+            android:src="@drawable/ic_certificate_outline" />
+
+        <TextView
+            android:id="@+id/specialty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/specialtyIcon"
+            app:layout_constraintTop_toBottomOf="@id/premium"
+            android:layout_marginStart="@dimen/externalMargin"
+            android:layout_marginTop="@dimen/externalMargin"
+            app:layout_goneMarginTop="@dimen/externalMargin"
+            android:text="@{viewModel.shift.localizedSpecialty.abbreviation}"
+            android:textSize="16sp"
+            tools:text="CNA" />
+
+        <ImageView
+            android:id="@+id/skillIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/skill"
+            android:src="@drawable/ic_bookmark_plus_outline" />
+
+        <TextView
+            android:id="@+id/skill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/skillIcon"
+            app:layout_constraintTop_toBottomOf="@id/specialty"
+            android:layout_marginStart="@dimen/externalMargin"
+            android:layout_marginTop="@dimen/externalMargin"
+            android:text="@{viewModel.shift.skill.name}"
+            android:textSize="16sp"
+            tools:text="Long Term Care" />
+
+        <TextView
+            android:id="@+id/confirmation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintBottom_toTopOf="@id/confirmation2"
+            app:layout_constraintTop_toBottomOf="@id/skill"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="32sp"
+            android:text="@string/fakeBidConfirmation"
+            android:gravity="center"
+            app:visibleOrGone="@{viewModel.bidViewVisibility}" />
+
+        <TextView
+            android:id="@+id/confirmation2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/confirmation"
+            app:layout_constraintBottom_toTopOf="@id/requestShiftsButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@{viewModel.countdown}"
+            android:textSize="32sp"
+            android:gravity="center"
+            tools:text="5..."
+            visibleOrGone="@{viewModel.bidViewVisibility}" />
+
+        <Button
+            android:id="@+id/requestShiftsButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/externalMargin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/bid"
+            android:onClick="@{() -> viewModel.bidOnShift()}"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>
